@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: test-pv
+spec:
+  storageClassName: "standard"
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  claimRef:
+    namespace: test
+    name: test-pvc-1
+  csi:
+    driver: pd.csi.storage.gke.io
+    volumeHandle: projects/neone-space-00001/zones/us-central1-a/disks/pvc-ed93e436-2938-467b-8f9c-6591b1946374
+    fsType: ext4
