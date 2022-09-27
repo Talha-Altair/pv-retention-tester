@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dir
+spec:
+  selector:
+    matchLabels:
+      app: dir
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dir
+    spec:
+      containers:
+      - name: dir
+        image: talhaabdurrahman/dir:lastest
+        ports:
+        - containerPort: 9000
+        env:
+          - name: directory
+            value: /test-dir
+        volumeMounts:
+        - name: test-dir-1
+          mountPath: /test-dir/test-dir-1
+        - name: test-dir-2
+          mountPath: /test-dir/test-dir-2
+      volumes:
+      - name: test-dir-1
+        persistentVolumeClaim:
+          claimName: test-pvc-1
+      - name: test-dir-2
+        persistentVolumeClaim:
+          claimName: test-pvc-2
+    
+
